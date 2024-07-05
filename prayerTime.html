@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prayer Times</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1 id="location">Prayer Times for</h1>
+    <ul id="prayer-times"></ul>
+    <br />
+    <span id="datetime"></span>
+    <script>
+      function updateDateTime() {
+        const now = new Date();
+        const options = {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        };
+        const currentDateTime = now.toLocaleString('en-US', options);
+        document.querySelector('#datetime').textContent = currentDateTime;
+
+        // Update time differences
+        const prayerTimesList = document.getElementById('prayer-times');
+        const items = prayerTimesList.querySelectorAll('li');
+        items.forEach(item => {
+          const time = item.getAttribute('data-time');
+          const timeDifference = calculateTimeDifference(time);
+          const differenceSpan = item.querySelector('.time-difference');
+          differenceSpan.textContent = timeDifference;
+        });
+      }
+
+      function calculateTimeDifference(prayerTime) {
+        const now = new Date();
+        const [hours, minutes] = prayerTime.split(':').map(Number);
+        const prayerDate = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate(),
+          hours,
+          minutes
+        );
+        const difference = prayerDate - now;
+
+        if (difference < 0) {
+          return 'Time has passed';
+        }
+
+        const diffHours = Math.floor(difference / (1000 * 60 * 60));
+        const diffMinutes = Math.floor(
+          (difference % (1000 * 60 * 60)) / (1000 * 60)
+        );
+
+        return `${diffHours}h ${diffMinutes}m left`;
+      }
+
+      fetch('prayer_times.json')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById(
+            'location'
+          ).innerText = `Prayer Times for ${data.city}, ${data.country}`;
+
+          const prayerTimesList = document.getElementById('prayer-times');
+          for (const [prayer, time] of Object.entries(data.prayer_times)) {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${prayer}: ${time}`;
+            listItem.setAttribute('data-time', time);
+
+            const differenceSpan = document.createElement('span');
+            differenceSpan.className = 'time-difference';
+            differenceSpan.textContent = calculateTimeDifference(time);
+
+            listItem.appendChild(differenceSpan);
+            prayerTimesList.appendChild(listItem);
+          }
+        })
+        .catch(error => console.error('Error fetching prayer times:', error));
+
+      setInterval(updateDateTime, 1000);
+
+      if (difference) {
+        console.log('It is the time for the prayer');
+      }
+    </script>
+  </body>
+</html>

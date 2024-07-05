@@ -1,0 +1,40 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f0f0;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+}
+h1 {
+  text-align: center;
+  color: #2c3e50;
+}
+#datetime {
+  display: block;
+  text-align: center;
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+#prayer-times {
+  list-style-type: none;
+  padding: 0;
+  max-width: 400px;
+  margin: 0 auto;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+#prayer-times li {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+#prayer-times li:last-child {
+  border-bottom: none;
+}
+.time-difference {
+  display: block;
+  font-size: 0.9em;
+  color: #e74c3c;
+  margin-top: 5px;
+}
