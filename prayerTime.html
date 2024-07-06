@@ -12,6 +12,8 @@
     <br />
     <span id="datetime"></span>
     <script>
+      const loggedPrayers = {};
+
       function updateDateTime() {
         const now = new Date();
         const options = {
@@ -26,14 +28,24 @@
         const currentDateTime = now.toLocaleString('en-US', options);
         document.querySelector('#datetime').textContent = currentDateTime;
 
-        // Update time differences
+        var playSound = function () {
+          var sound20 = new Audio('azanIslam.mp3');
+          sound20.play();
+        };
+
         const prayerTimesList = document.getElementById('prayer-times');
         const items = prayerTimesList.querySelectorAll('li');
         items.forEach(item => {
           const time = item.getAttribute('data-time');
+          const prayer = item.getAttribute('data-prayer');
           const timeDifference = calculateTimeDifference(time);
           const differenceSpan = item.querySelector('.time-difference');
-          differenceSpan.textContent = timeDifference;
+          differenceSpan.textContent = timeDifference.message;
+          if (timeDifference.isPrayerTime && !loggedPrayers[prayer]) {
+            console.log(`It is time for the ${prayer} prayer`);
+            loggedPrayers[prayer] = true;
+            return playSound();
+          }
         });
       }
 
@@ -47,10 +59,20 @@
           hours,
           minutes
         );
+
         const difference = prayerDate - now;
 
-        if (difference < 0) {
-          return 'Time has passed';
+        if (difference <= 0 && difference > -60000) {
+          return {message: 'Time for prayer', isPrayerTime: true};
+        } else if (prayerDate < now) {
+          return {message: 'Time has passed', isPrayerTime: false};
+        }
+
+        function testbutton() {
+          attempt++;
+          document.getElementById('alarm').innerHTML = 'guess' + attempt;
+          if (attempt == 3) {
+          }
         }
 
         const diffHours = Math.floor(difference / (1000 * 60 * 60));
@@ -58,7 +80,10 @@
           (difference % (1000 * 60 * 60)) / (1000 * 60)
         );
 
-        return `${diffHours}h ${diffMinutes}m left`;
+        return {
+          message: `${diffHours}h ${diffMinutes}m left`,
+          isPrayerTime: false,
+        };
       }
 
       fetch('prayer_times.json')
@@ -73,10 +98,11 @@
             const listItem = document.createElement('li');
             listItem.textContent = `${prayer}: ${time}`;
             listItem.setAttribute('data-time', time);
+            listItem.setAttribute('data-prayer', prayer); // Add this attribute for logging
 
             const differenceSpan = document.createElement('span');
             differenceSpan.className = 'time-difference';
-            differenceSpan.textContent = calculateTimeDifference(time);
+            differenceSpan.textContent = calculateTimeDifference(time).message;
 
             listItem.appendChild(differenceSpan);
             prayerTimesList.appendChild(listItem);
@@ -85,10 +111,6 @@
         .catch(error => console.error('Error fetching prayer times:', error));
 
       setInterval(updateDateTime, 1000);
-
-      if (difference) {
-        console.log('It is the time for the prayer');
-      }
     </script>
   </body>
 </html>
