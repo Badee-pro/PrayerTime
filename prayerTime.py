@@ -14,7 +14,7 @@ def get_prayer_times(country, city):
         data = response.json()
         
         timings = data['data']['timings']
-        required_prayers = {prayer: timings[prayer] for prayer in ['Fajr','Sunrise', 'Dhuhr', 'Asr', 'Maghrib', 'Isha']}
+        required_prayers = {prayer: timings[prayer] for prayer in ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha']}
         
         result = {
             "country": country,
