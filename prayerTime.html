@@ -25,12 +25,12 @@
           minute: '2-digit',
           second: '2-digit',
         };
-        const currentDateTime = now.toLocaleString('en-US', options);
+        const currentDateTime = now.toLocaleDateString('en-US', options);
         document.querySelector('#datetime').textContent = currentDateTime;
 
-        var playSound = function () {
-          var sound20 = new Audio('azanIslam.mp3');
-          return sound20.play();
+        const playsound = function () {
+          const sound = new Audio('azanIslam.mp3');
+          sound.play();
         };
 
         const prayerTimesList = document.getElementById('prayer-times');
@@ -39,10 +39,14 @@
           const time = item.getAttribute('data-time');
           const prayer = item.getAttribute('data-prayer');
           const timeDifference = calculateTimeDifference(time);
-          const differenceSpan = item.querySelector('.time-difference');
+          const differenceSpan = item.querySelector('.time-defference');
           differenceSpan.textContent = timeDifference.message;
 
-          if (timeDifference.isPrayerTime && !loggedPrayers[prayer]) {
+          if (
+            timeDifference.isPrayerTime &&
+            !loggedPrayers[prayer] &&
+            prayer !== 'Sunrise'
+          ) {
             console.log(`It is time for the ${prayer} prayer`);
             loggedPrayers[prayer] = true;
             return playSound();
