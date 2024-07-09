@@ -41,6 +41,7 @@
           const timeDifference = calculateTimeDifference(time);
           const differenceSpan = item.querySelector('.time-difference');
           differenceSpan.textContent = timeDifference.message;
+
           if (timeDifference.isPrayerTime && !loggedPrayers[prayer]) {
             console.log(`It is time for the ${prayer} prayer`);
             loggedPrayers[prayer] = true;
