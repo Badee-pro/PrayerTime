@@ -10,7 +10,9 @@
     <h1 id="location">Prayer Times for</h1>
     <ul id="prayer-times"></ul>
     <br />
-    <span id="datetime"></span>
+    <span id="datetimemilady"></span> 
+    <span id="datetimehijry"></span>
+
     <script>
       const loggedPrayers = {};
 
@@ -25,8 +27,11 @@
           minute: "2-digit",
           second: "2-digit",
         };
-        const currentDateTime = now.toLocaleString("en-US", options);
-        document.querySelector("#datetime").textContent = currentDateTime;
+        const currentDateTimeMilady = now.toLocaleString("en-US", options);
+        document.querySelector("#datetimemilady").textContent = currentDateTimeMilady;
+
+        const currentDateTimeHijri = now.toLocaleString("en-SA", options);
+        document.querySelector("#datetimehijry").textContent = currentDateTimeHijri;
 
         const playSound = function () {
           const sound = new Audio("azanIslam.mp3");
