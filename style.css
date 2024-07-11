@@ -1,40 +1,77 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f0f0f0;
-  color: #333;
-  margin: 0;
-  padding: 20px;
-}
-h1 {
+  background-color: #132e35;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #afb3b7;
   text-align: center;
-  color: #2c3e50;
-}
-#datetimemilady, #datetimehijry {
-  display: block;
-  text-align: center;
-  font-size: 1.2em;
-  margin-bottom: 20px;
-  color: #2c3e50;
-}
-#prayer-times {
-  list-style-type: none;
   padding: 0;
-  max-width: 400px;
-  margin: 0 auto;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  margin: 0;
 }
-#prayer-times li {
-  padding: 15px;
-  border-bottom: 1px solid #eee;
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  background-color: #0d1f23;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-#prayer-times li:last-child {
-  border-bottom: none;
+
+.header {
+  margin-bottom: 20px;
 }
-.time-difference {
-  display: block;
-  font-size: 0.9em;
-  color: #e74c3c;
-  margin-top: 5px;
+
+.header h1 {
+  font-size: 27px;
+  margin-bottom: 10px;
+}
+
+#datetimemilady,
+#datetimehijry {
+  font-size: 19px;
+  margin-bottom: 60px;
+  color: #afb3b7;
+}
+
+.prayer-times {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.prayer-time-box {
+  background-color: #2d4a53;
+  padding: 10px;
+  border-radius: 5px;
+  color: #afb3b7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.prayer-time-box div {
+  flex: 1;
+  text-align: center;
+}
+
+.prayer-time-box .prayer-name {
+  font-size: 20px;
+}
+
+.prayer-time-box .prayer-time {
+  font-size: 20px;
+  color: #afb3b7;
+}
+
+.prayer-time-box .time-difference {
+  font-size: 18px;
+  color: #b51a2b;
+}
+
+.footer {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #afb3b7;
 }

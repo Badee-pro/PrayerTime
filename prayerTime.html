@@ -7,116 +7,19 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1 id="location">Prayer Times for</h1>
-    <ul id="prayer-times"></ul>
-    <br />
-    <span id="datetimemilady"></span> 
-    <span id="datetimehijry"></span>
-
-    <script>
-      const loggedPrayers = {};
-
-      function updateDateTime() {
-        const now = new Date();
-        const options = {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        };
-        const currentDateTimeMilady = now.toLocaleString("en-US", options);
-        document.querySelector("#datetimemilady").textContent = currentDateTimeMilady;
-
-        const currentDateTimeHijri = now.toLocaleString("en-SA", options);
-        document.querySelector("#datetimehijry").textContent = currentDateTimeHijri;
-
-        const playSound = function () {
-          const sound = new Audio("azanIslam.mp3");
-          sound.play();
-        };
-
-        const prayerTimesList = document.getElementById("prayer-times");
-        const items = prayerTimesList.querySelectorAll("li");
-        items.forEach((item) => {
-          const time = item.getAttribute("data-time");
-          const prayer = item.getAttribute("data-prayer");
-          const timeDifference = calculateTimeDifference(time, prayer);
-          const differenceSpan = item.querySelector(".time-difference");
-          differenceSpan.textContent = timeDifference.message;
-
-          if (
-            timeDifference.isPrayerTime &&
-            !loggedPrayers[prayer] &&
-            prayer !== "Sunrise"
-          ) {
-            console.log(`It is time for the ${prayer} prayer`);
-            loggedPrayers[prayer] = true;
-            playSound();
-          }
-        });
-      }
-
-      function calculateTimeDifference(prayerTime, prayer) {
-        const now = new Date();
-        const [hours, minutes] = prayerTime.split(":").map(Number);
-        const prayerDate = new Date(
-          now.getFullYear(),
-          now.getMonth(),
-          now.getDate(),
-          hours,
-          minutes
-        );
-
-        const difference = prayerDate - now;
-
-        if (difference <= 0 && difference > -60000) {
-          return { message: `Time for ${prayer}`, isPrayerTime: true };
-        } else if (prayerDate < now) {
-          return { message: "Time has passed", isPrayerTime: false };
-        }
-
-        const diffHours = Math.floor(difference / (1000 * 60 * 60));
-        const diffMinutes = Math.floor(
-          (difference % (1000 * 60 * 60)) / (1000 * 60)
-        );
-
-        return {
-          message: `${diffHours}h ${diffMinutes}m left`,
-          isPrayerTime: false,
-        };
-      }
-
-      fetch("prayer_times.json")
-        .then((response) => response.json())
-        .then((data) => {
-          document.getElementById(
-            "location"
-          ).innerText = `Prayer Times for ${data.city}, ${data.country}`;
-
-          const prayerTimesList = document.getElementById("prayer-times");
-          for (const [prayer, time] of Object.entries(data.prayer_times)) {
-            const listItem = document.createElement("li");
-            listItem.textContent = `${prayer}: ${time}`;
-            listItem.setAttribute("data-time", time);
-            listItem.setAttribute("data-prayer", prayer);
-
-            const differenceSpan = document.createElement("span");
-            differenceSpan.className = "time-difference";
-            differenceSpan.textContent = calculateTimeDifference(
-              time,
-              prayer
-            ).message;
-
-            listItem.appendChild(differenceSpan);
-            prayerTimesList.appendChild(listItem);
-          }
-        })
-        .catch((error) => console.error("Error fetching prayer times:", error));
-
-      setInterval(updateDateTime, 1000);
-    </script>
+    <div class="container">
+      <div class="header">
+        <h1 id="location">Prayer Times for</h1>
+      </div>
+      <div id="prayer-times" class="prayer-times"></div>
+      <span id="dateTimeMilady"></span>
+      <br />
+      <br />
+      <span id="dateTimeHijry"></span>
+      <div class="footer">
+        <p>سبحان الله وبحمده...سبحان الله العظيم</p>
+      </div>
+    </div>
+    <script src="prayerTime.js"></script>
   </body>
 </html>
