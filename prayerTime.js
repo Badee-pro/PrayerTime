@@ -14,7 +14,7 @@ function updateDateTime() {
   const currentDateTimeMilady = now.toLocaleString("en-US", options);
   document.querySelector("#dateTimeMilady").textContent = currentDateTimeMilady;
 
-  const currentDateTimeHijri = now.toLocaleString("en-SA", options);
+  const currentDateTimeHijri = now.toLocaleString("en-TN-u-ca-islamic", options);
   document.querySelector("#dateTimeHijry").textContent = currentDateTimeHijri;
 
   const playSound = function () {
