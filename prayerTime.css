@@ -5,17 +5,21 @@ body {
   text-align: center;
   padding: 0;
   margin: 0;
+  height: 100%;
 }
 
 .container {
-  width: 100%;
-  max-width: 500px;
+  width: 95%;
+  height: 95%;
   margin: 20px auto;
   padding: 20px;
   border: 1px solid #eaeaea;
   border-radius: 10px;
   background-color: #0d1f23;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .header {
@@ -29,7 +33,7 @@ body {
 
 #datetimemilady,
 #datetimehijry {
-  font-size: 19px;
+  font-size: 27px;
   margin-bottom: 60px;
   color: #afb3b7;
 }
@@ -43,6 +47,7 @@ body {
 
 .prayer-time-box {
   background-color: #2d4a53;
+  height: 40px;
   padding: 10px;
   border-radius: 5px;
   color: #afb3b7;
@@ -68,10 +73,11 @@ body {
 .prayer-time-box .time-difference {
   font-size: 18px;
   color: #b51a2b;
+  width: 150px;
 }
 
 .footer {
   margin-top: 20px;
-  font-size: 16px;
+  font-size: 20px;
   color: #afb3b7;
 }
