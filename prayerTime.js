@@ -7,15 +7,24 @@ function updateDateTime() {
     year: "numeric",
     month: "long",
     day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
+    // hour: "2-digit",
+    // minute: "2-digit",
+    // second: "2-digit",
   };
   const currentDateTimeMilady = now.toLocaleString("en-US", options);
   document.querySelector("#dateTimeMilady").textContent = currentDateTimeMilady;
 
-  const currentDateTimeHijri = now.toLocaleString("en-TN-u-ca-islamic", options);
+  const currentDateTimeHijri = now.toLocaleString(
+    "en-TN-u-ca-islamic",
+    options
+  );
   document.querySelector("#dateTimeHijry").textContent = currentDateTimeHijri;
+
+  const currnetTime = now.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  document.querySelector("#time").textContent = currnetTime;
 
   const playSound = function () {
     const sound = new Audio("azanIslam.mp3");

@@ -1,83 +1,91 @@
 body {
-  background-color: #132e35;
+  background: url('background.jpg') no-repeat center center fixed;
+  background-size: cover;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #afb3b7;
   text-align: center;
   padding: 0;
   margin: 0;
-  height: 100%;
 }
 
 .container {
-  width: 95%;
-  height: 95%;
+  width: 100%;
+  max-width: 700px;
   margin: 20px auto;
   padding: 20px;
   border: 1px solid #eaeaea;
   border-radius: 10px;
-  background-color: #0d1f23;
+  background-color: rgba(13, 31, 35, 0.8);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  display: flex;
+  min-height: 650px;
+  /* display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-between; */
 }
 
 .header {
-  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 .header h1 {
-  font-size: 27px;
+  font-size: 30px;
   margin-bottom: 10px;
+  display: inline;
 }
 
-#datetimemilady,
-#datetimehijry {
-  font-size: 27px;
-  margin-bottom: 60px;
+#time {
+  margin-left: 70px;
+}
+
+#dateTimeMilady,
+#dateTimeHijry {
+  font-size: 20px;
+  /* margin-bottom: 60px; */
   color: #afb3b7;
 }
 
 .prayer-times {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
   margin: 20px 0;
 }
 
 .prayer-time-box {
   background-color: #2d4a53;
-  height: 40px;
   padding: 10px;
   border-radius: 5px;
   color: #afb3b7;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 40px;
 }
 
-.prayer-time-box div {
+.prayer-name,
+.prayer-time,
+.time-difference {
   flex: 1;
   text-align: center;
 }
 
-.prayer-time-box .prayer-name {
+.prayer-name {
   font-size: 20px;
 }
 
-.prayer-time-box .prayer-time {
+.prayer-time {
   font-size: 20px;
   color: #afb3b7;
 }
 
-.prayer-time-box .time-difference {
+.time-difference {
   font-size: 18px;
   color: #b51a2b;
-  width: 150px;
 }
 
 .footer {
-  margin-top: 20px;
+  margin-top: 40px;
   font-size: 20px;
   color: #afb3b7;
 }
