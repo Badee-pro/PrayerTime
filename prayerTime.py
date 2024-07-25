@@ -1,5 +1,9 @@
 import requests
 import json
+import schedule
+import time
+
+
 
 def get_prayer_times(country, city):
     url = "http://api.aladhan.com/v1/timingsByCity"
@@ -29,7 +33,14 @@ def get_prayer_times(country, city):
     else:
         print(f"Failed to retrieve data: {response.status_code}")
 
-country = input("Enter the country: ")
-city = input("Enter the city: ")
+userCountry = input("Enter the country: ")
+userCity = input("Enter the city: ")
 
-get_prayer_times(country, city)
+get_prayer_times(userCountry, userCity)
+
+# Schedule the job to run at midnight
+schedule.every().day.at("00:00").do(get_prayer_times, country=userCountry, city=userCity)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
